@@ -23,6 +23,7 @@ function startGame() {
   currentLevelWin = 0;
   let alertNotice = false;
   startBtn.disabled = true;
+  nextLevelBtn.disabled = true;
   
   
   
@@ -273,7 +274,6 @@ boxes[i].addEventListener("click", () => {
         alertNotice = true;   //stops alert spam
         startBtn.disabled = false;
         levelTracker = Math.max(0, levelTracker -2);    //prevents player going negative in levels
-        nextLevelBtn.style.display = "none";    //doesn't allow for level skip on loss
         currentCoins.innerText = "";      //resets possible coins earned on loss
         totalCoins.innerText = Math.floor(Number(totalCoins.innerText) / 2);    //punishes players total coins by half on loss
           let elem = document.createElement("img");
