@@ -31,7 +31,7 @@ body {
   width: 150px;
   margin-left: 150px;
   margin-bottom: 8px;
-  font-family: tahoma;
+  font-family: tahoma, arial;
 }
 
 #gameInfo {
@@ -52,6 +52,42 @@ body {
   overflow: hidden;
   position: relative;
   padding-top: 1%;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100vh);
+    transform: translateX(-10vw);
+  }
+}
+
+#winOrLose {
+  margin: auto;
+  border: 5px solid #f4f4f4;
+  border-radius: 5px;
+  width: 250px;
+  height: 70px;
+  z-index: 100;
+  position: absolute;
+      top: 41.8%;
+      left: 43.7%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 70px;
+  display: flex;
+  background: conic-gradient(
+    #33a366 90deg,
+    #1d835d 90deg 180deg,
+    #33a366 180deg 270deg,
+    #1d835d 270deg
+  );
+  font-size: 2em;
+  font-weight: bolder;
+  color: #f4f4f4;
+  animation: 0.6s slide-up; 
 }
 
 #row-1, #row-2, #row-3, #row-4, #row-5, #row-6 {
@@ -84,6 +120,10 @@ body {
   line-height: 87px;
   color: white;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.box:hover {
+  transform: scale(1.02);
 }
 
 .boom {
