@@ -7,14 +7,17 @@ let currentLevelWin = 0;
 let gameInfo = document.getElementById("gameInfo");
 let nextLevelBtn = document.getElementById("nextLevel");
 let levelTracker = 0;
+const winOrLose = document.getElementById("winOrLose");
 
 
 gameInfo.style.display = "none";
 nextLevelBtn.disabled = true;
+winOrLose.style.display = "none";
 
 
 function startGame() {
   
+  winOrLose.style.display = "none";
   levelTracker += 1;
   boxes.forEach((el) => el.disabled = false); //removes disabled flag on reset
   currentCoins.innerText = "";
@@ -59,7 +62,7 @@ function startGame() {
           : !document.getElementById("23") ? boxes[22].setAttribute("id", "23")
           : !document.getElementById("24") ? boxes[23].setAttribute("id", "24")
           : !document.getElementById("25") ? boxes[24].setAttribute("id", "25") : "";
-      }     //sets individual "id"'s for every box so it doesnt have to be done manually
+      }
     })
   }
  
@@ -118,7 +121,7 @@ function startGame() {
  const purpleColumnVoltorb = document.getElementById("voltorb10");
 //Bomb options below, 0 represents bomb to allow to math algorithms to work
 const options = [0, 1, 2, 3];
-const bombShelter = []; //not currently in use
+const bombShelter = [];
   
 function getRandomResult() {
   return options[Math.floor(Math.random() * options.length)];
@@ -155,10 +158,10 @@ function getRandomResult() {
     
 
       //assigns the correct total value to each row and column so the player can see how many points are available.
-
-  //Score row numbers generated below --------------------------
   for (let i = 0 ; i < boxes.length; i++) {
-
+    
+    //Score row numbers generated below --------------------------
+    
     let redRow = [Number(box1.value), Number(box2.value), Number(box3.value), Number(box4.value), Number(box5.value)];
         let redRowTotal = redRow.reduce((acc, el) => acc + el, 0);
         redRowInfo.innerText = redRowTotal;
@@ -208,9 +211,11 @@ function getRandomResult() {
     let currentLevelCoins = [...redRow, ...greenRow, ...yellowRow, ...blueRow, ...purpleRow];
     let currentLevelTotal = currentLevelCoins.reduce((acc, el) => acc + el, 0);
     currentLevelWin = currentLevelTotal;
-
+    console.log(...redRow, "GAP", ...greenRow, "GAP", ...yellowRow, "GAP", ...blueRow, "GAP", ...purpleRow);
+    
     
     //Voltorb row number information generated below -------------------
+    
     
    
     let row1Voltorb = [...redRow];
@@ -235,7 +240,7 @@ function getRandomResult() {
          purpleRowVoltorb.innerText = row5VoltorbTotal;
 
     //Voltorb column numbers generated below -------------------
-    
+  
     
     let column1Voltorb = [...redColumn];
          let column1VoltorbTotal = column1Voltorb.filter(el => el === 0).length;
@@ -262,6 +267,7 @@ function getRandomResult() {
 //adds up points earned in the level
 let pointsVal = [1,1];
 
+
 for (let i = 0; i < boxes.length; i++) {
 
 //Win or Lose condition checks below  
@@ -269,12 +275,14 @@ boxes[i].addEventListener("click", () => {
  
   let previousPoint = pointsVal[pointsVal.length - 1];
   
+  
     if (boxes[i].value == 0) {
-        alert("Game over!")
-        alertNotice = true;   //stops alert spam
         startBtn.disabled = false;
         levelTracker = Math.max(0, levelTracker -2);    //prevents player going negative in levels
         currentCoins.innerText = "";      //resets possible coins earned on loss
+        winOrLose.style.display = "block";
+        winOrLose.innerText = "Game Over!";
+        winOrLose.style.background = "#dc7059";
         totalCoins.innerText = Math.floor(Number(totalCoins.innerText) / 2);    //punishes players total coins by half on loss
           let elem = document.createElement("img");
               elem.classList.add("voltorb");
@@ -282,30 +290,27 @@ boxes[i].addEventListener("click", () => {
               elem.src="https://img.itch.zone/aW1nLzEyOTA5NTUxLnBuZw==/315x250%23c/yslQia.png";   //adds a nice picture of voltorb to show a boom
                  boxes.forEach((el) => el.disabled = true); //works to disable game after boom.
         return;
-      
     } else if (boxes[i].value == 1) {
         pointsVal.push(1);  //adds 1 point
         boxes[i].innerText = boxes[i].value;
-      
       } else if (boxes[i].value == 2) {
-          pointsVal.push(2);    //adds 2 points
+            pointsVal.push(2);  //adds 2 points
           boxes[i].innerText = boxes[i].value;
-      
         } else if (boxes[i].value == 3) {
-            pointsVal.push(3);    //adds 3 points
+            pointsVal.push(3); //adds 3 points
             boxes[i].innerText = boxes[i].value;
       }
     const currentLevelCoins = pointsVal.reduce((acc, el) => acc + el, 0);
     currentCoins.innerText = currentLevelCoins;
-  
-      if (currentLevelCoins == currentLevelWin) {
-        alert("You Win!")
-        alertNotice = true;
+      if (currentLevelCoins >= currentLevelWin) {
+        winOrLose.style.display = "block";
+        winOrLose.innerText = "You Win!";
+        winOrLose.style.background = "#33a366";
         totalCoins.innerText = Number(totalCoins.innerText) + currentLevelCoins;
         boxes.forEach((el) => el.disabled = true);
         nextLevelBtn.disabled = false;
         
-        //This will put a voltorb in each remaining slot to show how many the player successfully dodges on a win.
+         //This will put a voltorb in each remaining slot to show how many the player successfully dodges on a win.
           boxes.forEach(box => {
             if (box.value == 0) {
                 box.clicked = true;  
