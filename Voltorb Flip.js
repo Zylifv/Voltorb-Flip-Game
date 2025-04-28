@@ -211,7 +211,6 @@ function getRandomResult() {
     let currentLevelCoins = [...redRow, ...greenRow, ...yellowRow, ...blueRow, ...purpleRow];
     let currentLevelTotal = currentLevelCoins.reduce((acc, el) => acc + el, 0);
     currentLevelWin = currentLevelTotal;
-    console.log(...redRow, "GAP", ...greenRow, "GAP", ...yellowRow, "GAP", ...blueRow, "GAP", ...purpleRow);
     
     
     //Voltorb row number information generated below -------------------
