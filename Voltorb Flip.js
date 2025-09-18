@@ -7,6 +7,7 @@ let currentLevelWin = 0;
 let gameInfo = document.getElementById("gameInfo");
 let nextLevelBtn = document.getElementById("nextLevel");
 let levelTracker = 0;
+let currentBoxesWithoutBombs;
 const winOrLose = document.getElementById("winOrLose");
 
 
@@ -210,6 +211,7 @@ function getRandomResult() {
     
     let currentLevelCoins = [...redRow, ...greenRow, ...yellowRow, ...blueRow, ...purpleRow];
     let currentLevelTotal = currentLevelCoins.reduce((acc, el) => acc + el, 0);
+    currentBoxesWithoutBombs = currentLevelCoins.filter(el => el !== 0).length;
     currentLevelWin = currentLevelTotal;
     
     
@@ -265,6 +267,7 @@ function getRandomResult() {
 
 //adds up points earned in the level
 let pointsVal = [1,1];
+let currentLevelPoints = 0;
 
 
 for (let i = 0; i < boxes.length; i++) {
@@ -275,7 +278,8 @@ boxes[i].addEventListener("click", () => {
   let previousPoint = pointsVal[pointsVal.length - 1];
   
   
-    if (boxes[i].value == 0) {
+    if (boxes[i].value == 0)
+    {
         startBtn.disabled = false;
         levelTracker = Math.max(0, levelTracker -2);    //prevents player going negative in levels
         currentCoins.innerText = "";      //resets possible coins earned on loss
@@ -289,29 +293,56 @@ boxes[i].addEventListener("click", () => {
               elem.src="https://img.itch.zone/aW1nLzEyOTA5NTUxLnBuZw==/315x250%23c/yslQia.png";   //adds a nice picture of voltorb to show a boom
                  boxes.forEach((el) => el.disabled = true); //works to disable game after boom.
         return;
-    } else if (boxes[i].value == 1) {
+    }
+    else if (boxes[i].value == 1)
+      {
         pointsVal.push(1);  //adds 1 point
         boxes[i].innerText = boxes[i].value;
-      } else if (boxes[i].value == 2) {
-            pointsVal.push(2);  //adds 2 points
-          boxes[i].innerText = boxes[i].value;
-        } else if (boxes[i].value == 3) {
-            pointsVal.push(3); //adds 3 points
-            boxes[i].innerText = boxes[i].value;
+        currentLevelPoints += 1;
       }
+      else if (boxes[i].value == 2)
+      {
+          if (pointsVal[pointsVal.length - 1] == 2)
+          {
+            pointsVal.push(4);
+          }
+          else
+          {
+            pointsVal.push(2);  //adds 2 points
+          }
+          boxes[i].innerText = boxes[i].value;
+          currentLevelPoints += 1;
+        }
+        else if (boxes[i].value == 3)
+        {
+            if (pointsVal[pointsVal.length - 1] == 3)
+            {
+              pointsVal.push(6);  //bonus points
+            }
+            else
+            {
+              pointsVal.push(3);  //adds 3 points
+            }  
+            boxes[i].innerText = boxes[i].value;
+            currentLevelPoints += 1;
+        }
+  
     const currentLevelCoins = pointsVal.reduce((acc, el) => acc + el, 0);
     currentCoins.innerText = currentLevelCoins;
-      if (currentLevelCoins >= currentLevelWin) {
+      if (currentLevelPoints >= currentBoxesWithoutBombs)
+      {
         winOrLose.style.display = "block";
         winOrLose.innerText = "You Win!";
         winOrLose.style.background = "#33a366";
         totalCoins.innerText = Number(totalCoins.innerText) + currentLevelCoins;
         boxes.forEach((el) => el.disabled = true);
         nextLevelBtn.disabled = false;
+        currentLevelPoints = 0;
         
          //This will put a voltorb in each remaining slot to show how many the player successfully dodges on a win.
           boxes.forEach(box => {
-            if (box.value == 0) {
+            if (box.value == 0)
+            {
                 box.clicked = true;  
                 let elem = document.createElement("img");
                     elem.classList.add("voltorb");
@@ -325,11 +356,14 @@ boxes[i].addEventListener("click", () => {
 
 function information() {
   let x = document.getElementById("gameInfo");
-  if (x.style.display === "none") {
+  if (x.style.display === "none")
+  {
     x.style.display = "block";
     info.innerText = "Click again to hide."
     document.getElementById("sig").style.display = "none";
-  } else {
+  }
+  else
+  {
     x.style.display = "none";
     info.innerText = "Click for game info!";
     document.getElementById("sig").style.display = "block";
