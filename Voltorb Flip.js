@@ -283,6 +283,7 @@ boxes[i].addEventListener("click", () => {
         startBtn.disabled = false;
         levelTracker = Math.max(0, levelTracker -2);    //prevents player going negative in levels
         currentCoins.innerText = "";      //resets possible coins earned on loss
+        currentLevelPoints = 0;
         winOrLose.style.display = "block";
         winOrLose.innerText = "Game Over!";
         winOrLose.style.background = "#dc7059";
@@ -299,6 +300,7 @@ boxes[i].addEventListener("click", () => {
         pointsVal.push(1);  //adds 1 point
         boxes[i].innerText = boxes[i].value;
         currentLevelPoints += 1;
+        boxes[i].disabled = true;
       }
       else if (boxes[i].value == 2)
       {
@@ -312,6 +314,7 @@ boxes[i].addEventListener("click", () => {
           }
           boxes[i].innerText = boxes[i].value;
           currentLevelPoints += 1;
+          boxes[i].disabled = true;
         }
         else if (boxes[i].value == 3)
         {
@@ -325,6 +328,7 @@ boxes[i].addEventListener("click", () => {
             }  
             boxes[i].innerText = boxes[i].value;
             currentLevelPoints += 1;
+            boxes[i].disabled = true;
         }
   
     const currentLevelCoins = pointsVal.reduce((acc, el) => acc + el, 0);
