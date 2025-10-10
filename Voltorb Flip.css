@@ -22,7 +22,7 @@
 body {
   margin: 0 auto;
   background-color: #1d835d;
-  font-family: tahoma;
+  font-family: Tahoma, Arial;
 }
 
 #info {
@@ -31,7 +31,7 @@ body {
   width: 150px;
   margin-left: 150px;
   margin-bottom: 8px;
-  font-family: tahoma, arial;
+  font-family: Tahoma, Arial;
 }
 
 #gameInfo {
@@ -124,6 +124,7 @@ body {
 
 .box:hover {
   transform: scale(1.02);
+  border: 3px solid #F7D02C;
 }
 
 .boom {
@@ -133,9 +134,38 @@ body {
   padding: 3px;
   padding-right: 1px;
   border-radius: 7px;
-  background-color: red;
+  background-color: #e77352;
   text-align: center;
   font-size: 1.575em;
+  font-weight: bold;
+  vertical-align: middle;
+  line-height: 87px;
+  color: white;
+}
+
+.voltorb {
+  margin: auto;
+  display: flex;
+  height: 90px;
+  width: 115px;
+  z-index: 40;
+  right: 14px;
+  bottom: 1.75px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.phew {
+  width: 99.2px;
+  height: 99.2px;
+  border: 3px solid white;
+  padding: 3px;
+  padding-right: 1px;
+  border-radius: 7px;
+  background-color: #33a366;
+  text-align: center;
+  font-size: 2.8em;
   font-weight: bold;
   vertical-align: middle;
   line-height: 87px;
@@ -506,6 +536,8 @@ body {
   position: relative;
   right: 25%;
   top: 53%;
+  width: 50px;
+  height: 40px;
 }
 
 #voltorb6 {
