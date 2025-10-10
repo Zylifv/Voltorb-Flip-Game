@@ -15,7 +15,6 @@ gameInfo.style.display = "none";
 nextLevelBtn.disabled = true;
 winOrLose.style.display = "none";
 
-
 function startGame() {
   
   winOrLose.style.display = "none";
@@ -32,7 +31,8 @@ function startGame() {
   
   
   for (let i = 0; i < boxes.length; i++) {
-    boxes[i].classList.remove(".boom");
+    boxes[i].classList.remove("boom", "phew");
+    boxes[i].classList.add("box");
     boxes[i].innerText = "";
     let boxArr = [];
     boxArr.push(boxes);
@@ -63,7 +63,7 @@ function startGame() {
           : !document.getElementById("23") ? boxes[22].setAttribute("id", "23")
           : !document.getElementById("24") ? boxes[23].setAttribute("id", "24")
           : !document.getElementById("25") ? boxes[24].setAttribute("id", "25") : "";
-      }
+      }     //sets individual "id"'s for every box so it doesnt have to be done manually
     })
   }
  
@@ -213,6 +213,7 @@ function getRandomResult() {
     let currentLevelTotal = currentLevelCoins.reduce((acc, el) => acc + el, 0);
     currentBoxesWithoutBombs = currentLevelCoins.filter(el => el !== 0).length;
     currentLevelWin = currentLevelTotal;
+    console.log(...redRow, "GAP", ...greenRow, "GAP", ...yellowRow, "GAP", ...blueRow, "GAP", ...purpleRow);
     
     
     //Voltorb row number information generated below -------------------
@@ -241,7 +242,7 @@ function getRandomResult() {
          purpleRowVoltorb.innerText = row5VoltorbTotal;
 
     //Voltorb column numbers generated below -------------------
-  
+    
     
     let column1Voltorb = [...redColumn];
          let column1VoltorbTotal = column1Voltorb.filter(el => el === 0).length;
@@ -269,7 +270,6 @@ function getRandomResult() {
 let pointsVal = [1,1];
 let currentLevelPoints = 0;
 
-
 for (let i = 0; i < boxes.length; i++) {
 
 //Win or Lose condition checks below  
@@ -277,9 +277,10 @@ boxes[i].addEventListener("click", () => {
  
   let previousPoint = pointsVal[pointsVal.length - 1];
   
-  
     if (boxes[i].value == 0)
     {
+        alert("Game over!")
+        alertNotice = true;   //stops alert spam
         startBtn.disabled = false;
         levelTracker = Math.max(0, levelTracker -2);    //prevents player going negative in levels
         currentCoins.innerText = "";      //resets possible coins earned on loss
@@ -288,6 +289,8 @@ boxes[i].addEventListener("click", () => {
         winOrLose.innerText = "Game Over!";
         winOrLose.style.background = "#dc7059";
         totalCoins.innerText = Math.floor(Number(totalCoins.innerText) / 2);    //punishes players total coins by half on loss
+        boxes[i].classList.remove("box");
+        boxes[i].classList.add("boom");
           let elem = document.createElement("img");
               elem.classList.add("voltorb");
               boxes[i].appendChild(elem);
@@ -295,46 +298,53 @@ boxes[i].addEventListener("click", () => {
                  boxes.forEach((el) => el.disabled = true); //works to disable game after boom.
         return;
     }
-    else if (boxes[i].value == 1)
-      {
-        pointsVal.push(1);  //adds 1 point
-        boxes[i].innerText = boxes[i].value;
-        currentLevelPoints += 1;
-        boxes[i].disabled = true;
-      }
-      else if (boxes[i].value == 2)
-      {
-          if (pointsVal[pointsVal.length - 1] == 2)
-          {
+  else if (boxes[i].value == 1)
+  {
+      pointsVal.push(1);  //adds 1 point
+      boxes[i].innerText = boxes[i].value;
+      boxes[i].classList.remove("box");
+      boxes[i].classList.add("phew");
+      currentLevelPoints += 1;
+      boxes[i].disabled = true;
+  } else if (boxes[i].value == 2)
+    {
+       if (pointsVal[pointsVal.length - 1] == 2)
+       {
             pointsVal.push(4);
-          }
-          else
-          {
-            pointsVal.push(2);  //adds 2 points
-          }
+       }
+       else
+       {
+          pointsVal.push(2);  //adds 2 points
+       }
           boxes[i].innerText = boxes[i].value;
+          boxes[i].classList.remove("box");
+          boxes[i].classList.add("phew");
           currentLevelPoints += 1;
           boxes[i].disabled = true;
-        }
-        else if (boxes[i].value == 3)
+     }
+     else if (boxes[i].value == 3)
+     {
+        if (pointsVal[pointsVal.length - 1] == 3)
         {
-            if (pointsVal[pointsVal.length - 1] == 3)
-            {
-              pointsVal.push(6);  //bonus points
-            }
-            else
-            {
-              pointsVal.push(3);  //adds 3 points
-            }  
+            pointsVal.push(6);  //bonus points
+        }
+        else
+        {
+            pointsVal.push(3);  //adds 3 points
+        }  
             boxes[i].innerText = boxes[i].value;
+            boxes[i].classList.remove("box");
+            boxes[i].classList.add("phew");
             currentLevelPoints += 1;
             boxes[i].disabled = true;
-        }
+      }
   
     const currentLevelCoins = pointsVal.reduce((acc, el) => acc + el, 0);
     currentCoins.innerText = currentLevelCoins;
       if (currentLevelPoints >= currentBoxesWithoutBombs)
       {
+        alert("You Win!")
+        alertNotice = true;
         winOrLose.style.display = "block";
         winOrLose.innerText = "You Win!";
         winOrLose.style.background = "#33a366";
@@ -347,11 +357,13 @@ boxes[i].addEventListener("click", () => {
           boxes.forEach(box => {
             if (box.value == 0)
             {
-                box.clicked = true;  
-                let elem = document.createElement("img");
-                    elem.classList.add("voltorb");
-                    box.appendChild(elem);
-                    elem.src="https://img.itch.zone/aW1nLzEyOTA5NTUxLnBuZw==/315x250%23c/yslQia.png";
+              box.classList.remove("box");
+              box.classList.add("boom");
+              box.clicked = true;  
+              let elem = document.createElement("img");
+                  elem.classList.add("voltorb");
+                  box.appendChild(elem);
+                  elem.src="https://img.itch.zone/aW1nLzEyOTA5NTUxLnBuZw==/315x250%23c/yslQia.png";
             }
         })
       }
