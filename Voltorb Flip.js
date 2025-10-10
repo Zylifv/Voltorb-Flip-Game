@@ -14,6 +14,7 @@ const winOrLose = document.getElementById("winOrLose");
 gameInfo.style.display = "none";
 nextLevelBtn.disabled = true;
 winOrLose.style.display = "none";
+boxes.forEach((el) => el.disabled = true);
 
 function startGame() {
   
