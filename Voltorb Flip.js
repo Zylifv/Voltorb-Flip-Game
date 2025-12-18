@@ -39,32 +39,8 @@ function startGame() {
     boxArr.push(boxes);
     boxArr.forEach(function(nodelist) {     //assigning id's to each box instead of having to manually type and organise each time
       for (const nodeList in boxes) {
-        !document.getElementById("1") ? boxes[0].setAttribute("id", "1")
-          : !document.getElementById("2") ? boxes[1].setAttribute("id", "2")
-          : !document.getElementById("3") ? boxes[2].setAttribute("id", "3")
-          : !document.getElementById("4") ? boxes[3].setAttribute("id", "4")
-          : !document.getElementById("5") ? boxes[4].setAttribute("id", "5")
-          : !document.getElementById("6") ? boxes[5].setAttribute("id", "6")
-          : !document.getElementById("7") ? boxes[6].setAttribute("id", "7")
-          : !document.getElementById("8") ? boxes[7].setAttribute("id", "8")
-          : !document.getElementById("9") ? boxes[8].setAttribute("id", "9")
-          : !document.getElementById("10") ? boxes[9].setAttribute("id", "10")
-          : !document.getElementById("11") ? boxes[10].setAttribute("id", "11")
-          : !document.getElementById("12") ? boxes[11].setAttribute("id", "12")
-          : !document.getElementById("13") ? boxes[12].setAttribute("id", "13")
-          : !document.getElementById("14") ? boxes[13].setAttribute("id", "14")
-          : !document.getElementById("15") ? boxes[14].setAttribute("id", "15")
-          : !document.getElementById("16") ? boxes[15].setAttribute("id", "16")
-          : !document.getElementById("17") ? boxes[16].setAttribute("id", "17")
-          : !document.getElementById("18") ? boxes[17].setAttribute("id", "18")
-          : !document.getElementById("19") ? boxes[18].setAttribute("id", "19")
-          : !document.getElementById("20") ? boxes[19].setAttribute("id", "20")
-          : !document.getElementById("21") ? boxes[20].setAttribute("id", "21")
-          : !document.getElementById("22") ? boxes[21].setAttribute("id", "22")
-          : !document.getElementById("23") ? boxes[22].setAttribute("id", "23")
-          : !document.getElementById("24") ? boxes[23].setAttribute("id", "24")
-          : !document.getElementById("25") ? boxes[24].setAttribute("id", "25") : "";
-      }     //sets individual "id"'s for every box so it doesnt have to be done manually
+        !document.getElementById(`${i+1}`) ? boxes[i].setAttribute("id", `${i+1}`): "";
+      }  //sets individual "id"'s for every box so it doesnt have to be done manually
     })
   }
  
