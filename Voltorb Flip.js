@@ -107,33 +107,9 @@ function getRandomResult() {
 }
   
   //assigns each box a random value from 0 -3... 0 represents a bomb.
-  box1.value = getRandomResult();
-  box2.value = getRandomResult();
-  box3.value = getRandomResult();
-  box4.value = getRandomResult();
-  box5.value = getRandomResult();
-  box6.value = getRandomResult();
-  box7.value = getRandomResult();
-  box8.value = getRandomResult();
-  box9.value = getRandomResult();
-  box10.value = getRandomResult();
-  box11.value = getRandomResult();
-  box12.value = getRandomResult();
-  box13.value = getRandomResult();
-  box14.value = getRandomResult();
-  box15.value = getRandomResult();
-  box16.value = getRandomResult();
-  box17.value = getRandomResult();
-  box18.value = getRandomResult();
-  box19.value = getRandomResult();
-  box20.value = getRandomResult();
-  box21.value = getRandomResult();
-  box22.value = getRandomResult();
-  box23.value = getRandomResult();
-  box24.value = getRandomResult();
-  box25.value = getRandomResult();
-  
-    
+  for (let i = 1; i < 25; i++) {
+    document.getElementById(`${i}`).value = getRandomResult();
+  }
 
       //assigns the correct total value to each row and column so the player can see how many points are available.
   for (let i = 0 ; i < boxes.length; i++) {
