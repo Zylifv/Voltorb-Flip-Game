@@ -229,7 +229,6 @@ for (let i : number = 0; i < boxes.length; i++) {
 boxes[i].addEventListener("click", () => {
  
   let previousPoint = pointsVal[pointsVal.length - 1];
-  //console.log(pointsVal, pointsVal.length, previousPoint);
   
     if (boxes[i].value == 0)
     {
