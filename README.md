@@ -5,8 +5,8 @@ This project was an old one that i have since gone back to in the hopes of impro
 
 There are still a few things i would like to improve on, such as:
 
- - An ability to make notes in the corner of the boxes, like in Sudoku
- - Changing the background dynamically on clicks and being able to reset them again
+ - An ability to make notes in the corner of the boxes, like in Sudoku. I intend on having an overlay on each box to allow the user to highlight which note(s) they would like to make.
+ - Changing the background dynamically on clicks and being able to reset them again (NOW COMPLETE)
 
 For a quick look at the game in action, follow the below link to my CodePen version of the game:
 
